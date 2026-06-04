@@ -1,6 +1,6 @@
 name: Auto Generate JSON
 
-# Ye robot tab chalega jab in folders mein kuch naya aayega
+# Ye robot tab chalega jab in folders mein kuch naya aayega, YA jab aap manually button dabayenge
 on:
   push:
     branches:
@@ -11,6 +11,7 @@ on:
       - 'Others/**'
       - 'Radha/**'
       - 'Krishna/**'
+  workflow_dispatch: # <--- ⭐ YE HAI WO JADUI LINE JO BUTTON LAAYEGI ⭐
 
 jobs:
   build:

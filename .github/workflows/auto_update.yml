@@ -1,5 +1,6 @@
 name: Auto Generate JSON
-
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 # Ye robot tab chalega jab in folders mein kuch naya aayega, YA jab aap manually button dabayenge
 on:
   push:

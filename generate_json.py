@@ -6,8 +6,9 @@ base_raw_url = "https://raw.githubusercontent.com/shriradheranigopala/HDWallpape
 base_status_url = "https://github.com/shriradheranigopala/HDWallpaper/raw/refs/heads/main/"
 
 # Folders aur unki category ka naam
+# ⭐ BHALI FOLDER 'Status' HO, PAR JSON MEIN CATEGORY 'Videos' AAYEGI ⭐
 folders = {
-    "Status": "Whatsapp Status",
+    "Status": "Videos",
     "RadhaKrishna": "Radha Krishna",
     "Others": "Others",
     "Radha": "Radha",

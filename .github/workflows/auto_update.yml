@@ -11,7 +11,7 @@ on:
       - 'Others/**'
       - 'Radha/**'
       - 'Krishna/**'
-  workflow_dispatch: # <--- ⭐ YE HAI WO JADUI LINE JO BUTTON LAAYEGI ⭐
+  workflow_dispatch: 
 
 jobs:
   build:
@@ -21,10 +21,10 @@ jobs:
       
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # <--- ⭐ v3 se v4 kar diya
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5 # <--- ⭐ v4 se v5 kar diya
         with:
           python-version: '3.x'
 

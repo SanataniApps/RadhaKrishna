@@ -1,7 +1,7 @@
 name: Auto Generate JSON
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-# Ye robot tab chalega jab in folders mein kuch naya aayega, YA jab aap manually button dabayenge
+
 on:
   push:
     branches:
@@ -18,14 +18,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write  # ⭐ Ye zaruri hai taaki robot file commit kar sake
       
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4  # <--- ⭐ v3 se v4 kar diya
+        uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v5 # <--- ⭐ v4 se v5 kar diya
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
@@ -37,5 +37,10 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add wallpapers.json
-          git commit -m "Auto-generated wallpapers.json by Robot" || echo "No changes to commit"
-          git push
+          # Ye check karega ki koi change hua hai ya nahi, taaki error na aaye
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-generated wallpapers.json by Robot"
+            git push
+          fi

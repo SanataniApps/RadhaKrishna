@@ -1,17 +1,17 @@
 import os
 import json
 
-# ⭐ UPDATED URLs: Ab ye 'SanataniApps/RadhaKrishna' ka use karenge
-base_raw_url = "https://raw.githubusercontent.com/SanataniApps/RadhaKrishna/refs/heads/main/"
-base_status_url = "https://github.com/SanataniApps/RadhaKrishna/raw/refs/heads/main/"
+# ⭐ Naye 'Secret' URLs: s-n-t-ni-a-p organization aur res-rk repo
+base_raw_url = "https://raw.githubusercontent.com/s-n-t-ni-a-p/res-rk/refs/heads/main/"
+base_status_url = "https://github.com/s-n-t-ni-a-p/res-rk/raw/refs/heads/main/"
 
-# Folders aur unki category ka naam
+# ⭐ Naye 'Secret' Folders aur unki category ka naam
 folders = {
-    "Status": "Videos",
-    "RadhaKrishna": "Radha Krishna",
-    "Others": "Others",
-    "Radha": "Radha",
-    "Krishna": "Krishna"
+    "S": "Videos",
+    "RK": "Radha Krishna",
+    "O": "Others",
+    "R": "Radha",
+    "K": "Krishna"
 }
 
 wallpaper_list = []
@@ -32,7 +32,8 @@ for folder, category_name in folders.items():
         valid_files.sort(key=get_num, reverse=True)
         
         for index, file in enumerate(valid_files):
-            if folder == "Status":
+            # Status ke liye ab 'S' folder hai
+            if folder == "S":
                 file_url = f"{base_status_url}{folder}/{file}"
             else:
                 file_url = f"{base_raw_url}{folder}/{file}"
@@ -51,4 +52,4 @@ for folder, category_name in folders.items():
 with open("wallpapers.json", "w") as f:
     json.dump(wallpaper_list, f, indent=2)
 
-print("Bhai, JSON naye Organization path ke saath update ho gaya!")
+print("Bhai, JSON naye secret path ke saath ekdum ready hai!")

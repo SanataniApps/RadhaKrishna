@@ -7,11 +7,11 @@ on:
     branches:
       - main
     paths:
-      - 'Status/**'
-      - 'RadhaKrishna/**'
-      - 'Others/**'
-      - 'Radha/**'
-      - 'Krishna/**'
+      - 'S/**'
+      - 'RK/**'
+      - 'O/**'
+      - 'R/**'
+      - 'K/**'
   workflow_dispatch: 
 
 jobs:

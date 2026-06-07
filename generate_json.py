@@ -1,8 +1,10 @@
 import os
 import json
 
-# ⭐ Naye 'Secret' URLs: s-n-t-ni-a-p organization aur res-rk repo
-base_raw_url = "https://raw.githubusercontent.com/s-n-t-ni-a-p/res-rk/refs/heads/main/"
+# ⭐ NAYA SUPER-FAST CDN URL (Images goli ki raftar se load hongi)
+base_cdn_url = "https://cdn.jsdelivr.net/gh/s-n-t-ni-a-p/res-rk@main/"
+
+# ⭐ Videos ke liye purana raw link hi best hai (video player fast chalta hai ispe)
 base_status_url = "https://github.com/s-n-t-ni-a-p/res-rk/raw/refs/heads/main/"
 
 # ⭐ Naye 'Secret' Folders aur unki category ka naam
@@ -32,11 +34,11 @@ for folder, category_name in folders.items():
         valid_files.sort(key=get_num, reverse=True)
         
         for index, file in enumerate(valid_files):
-            # Status ke liye ab 'S' folder hai
+            # Videos ('S' folder) ke liye direct Github, Images ke liye CDN
             if folder == "S":
                 file_url = f"{base_status_url}{folder}/{file}"
             else:
-                file_url = f"{base_raw_url}{folder}/{file}"
+                file_url = f"{base_cdn_url}{folder}/{file}"
             
             # Har category ki top 4 latest files ko 'isNew: true' do
             is_new = "true" if index < 4 else "false"
@@ -52,4 +54,4 @@ for folder, category_name in folders.items():
 with open("wallpapers.json", "w") as f:
     json.dump(wallpaper_list, f, indent=2)
 
-print("Bhai, JSON naye secret path ke saath ekdum ready hai!")
+print("Bhai, JSON naye Super-Fast CDN path ke saath ekdum ready hai!")

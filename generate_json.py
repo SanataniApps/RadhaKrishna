@@ -14,25 +14,24 @@ folders = {
     "K": "Krishna"
 }
 
-# ⭐ NAYA SMART FUNCTION: Ye check karega file ko add hue kitne din ho gaye
+# ⭐ NAYA BULLETPROOF FUNCTION
 def get_file_age_in_days(filepath):
     try:
-        # Git history se file add hone ka time nikalega
-        result = subprocess.run(
-            ['git', 'log', '--diff-filter=A', '--format=%at', '-1', '--', filepath],
-            stdout=subprocess.PIPE, text=True
-        )
+        # File ka sabse purana (first) commit time nikalega
+        cmd = f'git log --format=%at -- "{filepath}"'
+        result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, text=True)
         output = result.stdout.strip()
         
         if output:
-            timestamp = int(output) # Git wala time
+            # Output mein list of timestamps hoti hai, hum sabse aakhiri (oldest) uthayenge
+            oldest_timestamp = int(output.split('\n')[-1])
+            current_time = time.time()
+            return (current_time - oldest_timestamp) / (24 * 3600)
         else:
-            timestamp = os.path.getmtime(filepath) # Agar file abhi commit nahi hui hai (Local fallback)
-            
-        current_time = time.time()
-        return (current_time - timestamp) / (24 * 3600) # Difference in days
+            # ⭐ MAIN FIX: Agar history na mile, toh file ko 999 din purani maan lo (Taaki sab galti se NEW na banein)
+            return 999.0
     except Exception:
-        return 999 # Agar error aaye to purani file maan lo
+        return 999.0
 
 wallpaper_list = []
 
@@ -50,17 +49,17 @@ for folder, category_name in folders.items():
         valid_files.sort(key=get_num, reverse=True)
 
         for file in valid_files:
-            file_path = os.path.join(folder, file)
+            # Unix path format (important for Git bash)
+            file_path = f"{folder}/{file}"
             
             if folder == "S":
                 file_url = f"{base_status_url}{folder}/{file}"
             else:
                 file_url = f"{base_cdn_url}{folder}/{file}"
 
-            # ⭐ NAYA MAGIC: Age nikalo aur 10 din ka rule lagao
+            # Age nikalo aur 10 din ka rule lagao
             age_in_days = get_file_age_in_days(file_path)
             
-            # Agar file 10 din ya usse kam purani hai, toh NEW rahegi, warna hat jayegi!
             is_new = "true" if age_in_days <= 10.0 else "false"
 
             item = {
@@ -73,4 +72,4 @@ for folder, category_name in folders.items():
 with open("wallpapers.json", "w") as f:
     json.dump(wallpaper_list, f, indent=2)
 
-print("Bhai, JSON 10-day auto-expiry logic ke saath ekdum ready hai!")
+print("Bhai, JSON naye Bulletproof logic ke saath ekdum ready hai!")

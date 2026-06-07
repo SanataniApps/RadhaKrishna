@@ -6,6 +6,8 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: '0 0 * * *' # Iska matlab hai: Har roz raat ko 12 baje ye script khud chalegi
     paths:
       - 'S/**'
       - 'RK/**'

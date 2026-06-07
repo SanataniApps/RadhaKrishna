@@ -1,0 +1,21 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.RadheGopalHDWallpapers" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="colorPrimary">#141E30</item>
+        <item name="colorPrimaryVariant">#0B121C</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#D4AF37</item>
+        <item name="colorSecondaryVariant">#D4AF37</item>
+        <item name="colorOnSecondary">#000000</item>
+        <item name="android:statusBarColor">#0B121C</item>
+    </style>
+    <style name="CustomTabStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="NavMenuTheme" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textColorSecondary">#D4AF37</item>
+        <item name="colorOnSurfaceVariant">#D4AF37</item>
+    </style>
+</resources>

@@ -1,10 +1,12 @@
 name: Auto Generate Thumbnails
 
-# Jab bhi 'main' branch par kuch push hoga (nayi image aayegi), ye chalega
 on:
+  # 1. Jab bhi 'main' branch par kuch push hoga, ye auto chalega
   push:
     branches:
       - main
+  # 2. ⭐ NAYA: Ye line tumhe GitHub par ek "Button" degi manually run karne ke liye
+  workflow_dispatch:
 
 jobs:
   build:
@@ -13,9 +15,6 @@ jobs:
       contents: write
 
     steps:
-      - name: Install Python Libraries
-        run: pip install Pillow opencv-python-headless
-        
       - name: Checkout Repository
         uses: actions/checkout@v3
 
@@ -24,8 +23,8 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install Pillow (Image Library)
-        run: pip install Pillow
+      - name: Install Python Libraries
+        run: pip install Pillow opencv-python-headless
 
       - name: Run Thumbnail Generator Script
         run: python generate_thumbs.py

@@ -1,11 +1,9 @@
 name: Auto Generate Thumbnails
 
 on:
-  # 1. Jab bhi 'main' branch par kuch push hoga, ye auto chalega
   push:
     branches:
       - main
-  # 2. ⭐ NAYA: Ye line tumhe GitHub par ek "Button" degi manually run karne ke liye
   workflow_dispatch:
 
 jobs:
@@ -16,15 +14,16 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # ⭐ NAYA: Warning hatane ke liye v4 kiya
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5 # ⭐ NAYA: Warning hatane ke liye v5 kiya
         with:
           python-version: '3.x'
 
       - name: Install Python Libraries
-        run: pip install Pillow opencv-python-headless
+        # Numpy add kiya taaki video processing me koi internal error na aaye
+        run: pip install Pillow opencv-python-headless numpy
 
       - name: Run Thumbnail Generator Script
         run: python generate_thumbs.py
@@ -34,6 +33,13 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add .
-          # Agar koi nayi thumb bani hai toh commit karke push karega, nahi toh chhod dega
-          git commit -m "Auto-generated thumbnails [skip ci]" || echo "No new thumbnails to commit"
-          git push
+          
+          # ⭐ SMART FIX: Pehle check karega ki koi nayi photo bani bhi hai ya nahi.
+          # Agar nahi bani hogi toh error nahi dega, chupchaap pass ho jayega!
+          if git diff-index --quiet HEAD; then
+            echo "Koi nayi thumbnail nahi mili, sab pehle se set hai. ✅"
+          else
+            git commit -m "Auto-generated thumbnails [skip ci]"
+            git push
+            echo "Nayi thumbnails save ho gayi hain! 🚀"
+          fi

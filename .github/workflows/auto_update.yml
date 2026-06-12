@@ -6,27 +6,29 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: '0 0 * * *' # Iska matlab hai: Har roz raat ko 12 baje ye script khud chalegi
     paths:
       - 'S/**'
       - 'RK/**'
       - 'O/**'
       - 'R/**'
       - 'K/**'
-  schedule:
-    - cron: '0 0 * * *' 
+
+
   workflow_dispatch: 
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write 
-      
+      contents: write  # ⭐ Ye zaruri hai taaki robot file commit kar sake
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 
+          fetch-depth: 0  # <--- ⭐ SIRF YE EK LINE ADD KARNI HAI ⭐
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -41,6 +43,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add wallpapers.json
+          # Ye check karega ki koi change hua hai ya nahi, taaki error na aaye
           if git diff --quiet && git diff --staged --quiet; then
             echo "No changes to commit"
           else

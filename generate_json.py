@@ -3,8 +3,7 @@ import json
 import subprocess
 import time
 
-base_cdn_url = "https://cdn.jsdelivr.net/gh/s-n-t-ni-a-p/res-rk@main/"
-base_status_url = "https://github.com/s-n-t-ni-a-p/res-rk/raw/refs/heads/main/"
+base_raw_url = "https://github.com/s-n-t-ni-a-p/res-rk/raw/refs/heads/main/"
 
 folders = {
     "S": "Videos",
@@ -41,7 +40,8 @@ for folder, category_name in folders.items():
         valid_files.sort(key=get_num, reverse=True)
         
         for file in valid_files:
-            file_url = f"{base_status_url}{folder}/{file}" if folder == "S" else f"{base_cdn_url}{folder}/{file}"
+            # Sirf raw url use hoga sabke liye
+            file_url = f"{base_raw_url}{folder}/{file}"
             age_in_days = get_file_age_in_days(f"{folder}/{file}")
             is_new = "true" if age_in_days <= 10.0 else "false"
             

@@ -1,52 +1,52 @@
 name: Auto Generate JSON
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 on:
-  push:
-    branches:
-      - main
-  schedule:
-    - cron: '0 0 * * *' # Iska matlab hai: Har roz raat ko 12 baje ye script khud chalegi
-    paths:
-      - 'S/**'
-      - 'RK/**'
-      - 'O/**'
-      - 'R/**'
-      - 'K/**'
-
-
-  workflow_dispatch: 
+  push:
+    branches:
+      - main
+    paths:
+      - 'S/**'
+      - 'RK/**'
+      - 'O/**'
+      - 'R/**'
+      - 'K/**'
+  schedule:
+    - cron: '0 0 * * *' 
+  workflow_dispatch: 
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write  # ⭐ Ye zaruri hai taaki robot file commit kar sake
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write 
+      
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # <--- ⭐ SIRF YE EK LINE ADD KARNI HAI ⭐
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
+      - name: Run JSON Generator Script
+        run: python generate_json.py
 
-      - name: Run JSON Generator Script
-        run: python generate_json.py
+      - name: Commit and Push New JSON
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add wallpapers.json
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-generated wallpapers.json by Robot"
+            git push
+          fi
 
-      - name: Commit and Push New JSON
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add wallpapers.json
-          # Ye check karega ki koi change hua hai ya nahi, taaki error na aaye
-          if git diff --quiet && git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Auto-generated wallpapers.json by Robot"
-            git push
-          fi
+
+in dono file me kya ho raha he ye batao theek se

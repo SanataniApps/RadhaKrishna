@@ -3,7 +3,6 @@ import json
 import subprocess
 import time
 
-# ⭐ CDN hata diya, ab sirf GitHub Raw URL use hoga
 base_raw_url = "https://raw.githubusercontent.com/s-n-t-ni-a-p/res-rk/main/"
 
 folders = {
@@ -32,7 +31,13 @@ wallpaper_list = []
 for folder, category_name in folders.items():
     if os.path.exists(folder):
         files = os.listdir(folder)
-        valid_files = [f for f in files if f.endswith(('.jpg', '.jpeg', '.png', '.mp4'))]
+        
+        # ⭐ SABSE BADA FIX YAHAN HAI: 
+        # Humne check laga diya ki wahi file uthao jo valid ho AUR jiska naam 'thumb_' se shuru NAHI hota ho.
+        valid_files = [
+            f for f in files 
+            if f.endswith(('.jpg', '.jpeg', '.png', '.mp4')) and not f.startswith('thumb_')
+        ]
         
         def get_num(filename):
             try: return int(filename.split('.')[0])
@@ -41,7 +46,6 @@ for folder, category_name in folders.items():
         valid_files.sort(key=get_num, reverse=True)
         
         for file in valid_files:
-            # ⭐ Ab Images aur Videos dono seedha fast RAW URL se load hongi
             file_url = f"{base_raw_url}{folder}/{file}"
             age_in_days = get_file_age_in_days(f"{folder}/{file}")
             is_new = "true" if age_in_days <= 10.0 else "false"

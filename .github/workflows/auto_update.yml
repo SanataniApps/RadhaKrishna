@@ -45,5 +45,6 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Auto-generated wallpapers.json by Robot"
+            git pull --rebase origin main   # ⭐ YAHAN BHI ADD KI HAI YE LINE
             git push
           fi

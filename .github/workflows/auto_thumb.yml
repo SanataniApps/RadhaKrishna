@@ -1,5 +1,9 @@
 name: Auto Generate Thumbnails
 
+# ⭐ BAS YE 2 LINE YAHAN ADD KARNI HAIN ⭐
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  
 on:
   push:
     branches:
